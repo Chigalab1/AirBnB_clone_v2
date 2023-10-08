@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Compress web static package
+"""Func that compress web static package
 """
 from fabric.api import *
 from datetime import datetime
 from os import path
 
 
-env.hosts = ["34..180", ".52"]
+env.hosts = ["54.82.243.231", "52.87.231.46"]
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/school'
 
@@ -31,10 +31,8 @@ releases/web_static_{}/'.format(timestamp))
 /data/web_static/releases/web_static_{}/'
                     .format(timestamp, timestamp))
 
-                # remove archive
                 run('sudo rm /tmp/web_static_{}.tgz'.format(timestamp))
 
-                # move contents into host web_static
                 run('sudo mv /data/web_static/releases/web_static_{}/web_static/* \
 /data/web_static/releases/web_static_{}/'.format(timestamp, timestamp))
 
@@ -46,7 +44,6 @@ web_static_{}/web_static'
                 # delete pre-existing sym link
                 run('sudo rm -rf /data/web_static/current')
 
-                # re-establish symbolic link
                 run('sudo ln -s /data/web_static/releases/\
 web_static_{}/ /data/web_static/current'.format(timestamp))
         except:
